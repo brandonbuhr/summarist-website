@@ -1,0 +1,154 @@
+/* LoginModal.module.css */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0; /* same as top: 0, bottom: 0, left: 0, right: 0 */
+  background-color: rgba(0, 0, 0, 0.5); /* dark transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* make sure it's above everything else */
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-logo {
+  width: 80px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.modal-body {
+  width: 100%;
+}
+
+.social-button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: #777;
+  font-size: 0.75rem;
+}
+
+.modal-separator::before,
+.modal-separator::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ccc;
+}
+
+.modal-separator span {
+  margin: 0 0.5rem;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-mail-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
+  color: #aaa;
+}
+
+.modal-submit {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #6b46c1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-guest {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-footer {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.75rem;
+}
+
+.modal-footer a {
+  color: #777;
+  text-decoration: none;
+}
+
+.modal-footer a:hover {
+  text-decoration: underline;
+}
+.modal-input-wrapper {
+  position: relative;
+}
+
+.modal-input-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
+  color: #aaa;
+}

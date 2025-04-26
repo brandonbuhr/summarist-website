@@ -1,9 +1,18 @@
+"use client";
+
+import { useState } from "react";
 import { AiFillAudio, AiFillBulb, AiFillFileText } from "react-icons/ai";
 import { BiCrown } from "react-icons/bi";
 import { BsFillStarFill, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { RiLeafLine } from "react-icons/ri";
+import LoginModal from "./components/LoginModal";
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <div>
       <nav className="nav">
@@ -12,13 +21,16 @@ export default function Home() {
             <img className="nav__img" src="logo.png" alt="logo" />
           </figure>
           <ul className="nav__list--wrapper">
-            <li className="nav__list nav__list--login">Login</li>
+            <li className="nav__list nav__list--login" onClick={openModal}>
+              Login
+            </li>
             <li className="nav__list nav__list--mobile">About</li>
             <li className="nav__list nav__list--mobile">Contact</li>
             <li className="nav__list nav__list--mobile">Help</li>
           </ul>
         </div>
       </nav>
+
       <section id="landing">
         <div className="container">
           <div className="row">
@@ -35,7 +47,9 @@ export default function Home() {
                   <br className="remove--tablet" />
                   and even people who don’t like to read.
                 </div>
-                <button className="btn home__cta--btn">Login</button>
+                <button className="btn home__cta--btn" onClick={openModal}>
+                  Login
+                </button>
               </div>
               <figure className="landing__image--mask">
                 <img src="landing.png" alt="landing" />
@@ -44,6 +58,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
       <section id="features">
         <div className="container">
           <div className="row">
@@ -75,10 +90,11 @@ export default function Home() {
                 </div>
                 <div className="features__title">Briefcasts</div>
                 <div className="features__sub--title">
-                  Gain valuable insights from briefcasts
+                  Gain valuable insights from briefcasts.
                 </div>
               </div>
             </div>
+
             <div className="statistics__wrapper">
               <div className="statistics__content--header">
                 <div className="statistics__heading">
@@ -96,6 +112,7 @@ export default function Home() {
                   Be the best version of yourself!
                 </div>
               </div>
+
               <div className="statistics__content--details">
                 <div className="statistics__data">
                   <div className="statistics__data--number">93%</div>
@@ -118,30 +135,29 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
             <div className="statistics__wrapper">
               <div className="statistics__content--details statistics__content--details-second">
                 <div className="statistics__data">
                   <div className="statistics__data--number">91%</div>
                   <div className="statistics__data--title">
-                    of Summarist members <b>report feeling more productive</b>
-                    after incorporating the service into their daily routine.
+                    of Summarist members <b>feel more productive</b>.
                   </div>
                 </div>
                 <div className="statistics__data">
                   <div className="statistics__data--number">94%</div>
                   <div className="statistics__data--title">
-                    of Summarist members have <b>noticed an improvement</b> in
-                    their overall comprehension and retention of information.
+                    have <b>improved comprehension</b> and retention.
                   </div>
                 </div>
                 <div className="statistics__data">
                   <div className="statistics__data--number">88%</div>
                   <div className="statistics__data--title">
-                    of Summarist members <b>feel more informed</b> about current
-                    events and industry trends since using the platform.
+                    feel <b>more informed</b> about current events.
                   </div>
                 </div>
               </div>
+
               <div className="statistics__content--header statistics__content--header-second">
                 <div className="statistics__heading">Expand your learning</div>
                 <div className="statistics__heading">Accomplish your goals</div>
@@ -160,6 +176,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
       <section id="reviews">
         <div className="row">
           <div className="container">
@@ -173,11 +190,10 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="review__body">
-                  This app has been a <b>game-changer</b> for me! It's saved me
-                  so much time and effort in reading and comprehending books.
-                  Highly recommend it to all book lovers.
+                  This app has been a <b>game-changer</b> for me!
                 </div>
               </div>
+
               <div className="review">
                 <div className="review__header">
                   <div className="review__name">David B.</div>
@@ -186,12 +202,10 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="review__body">
-                  I love this app! It provides
-                  <b>concise and accurate summaries</b> of books in a way that
-                  is easy to understand. It's also very user-friendly and
-                  intuitive.
+                  I love this app! <b>Concise summaries!</b>
                 </div>
               </div>
+
               <div className="review">
                 <div className="review__header">
                   <div className="review__name">Nathan S.</div>
@@ -200,12 +214,10 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="review__body">
-                  This app is a great way to get the main takeaways from a book
-                  without having to read the entire thing.
-                  <b>The summaries are well-written and informative.</b>
-                  Definitely worth downloading.
+                  Summaries are <b>informative and well-written.</b>
                 </div>
               </div>
+
               <div className="review">
                 <div className="review__header">
                   <div className="review__name">Ryan R.</div>
@@ -214,25 +226,27 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="review__body">
-                  If you're a busy person who
-                  <b>loves reading but doesn't have the time</b> to read every
-                  book in full, this app is for you! The summaries are thorough
-                  and provide a great overview of the book's content.
+                  Perfect for busy people! <b>Love it!</b>
                 </div>
               </div>
             </div>
+
             <div className="reviews__btn--wrapper">
-              <button className="btn home__cta--btn">Login</button>
+              <button className="btn home__cta--btn" onClick={openModal}>
+                Login
+              </button>
             </div>
           </div>
         </div>
       </section>
+
       <section id="numbers">
         <div className="container">
           <div className="row">
             <div className="section__title">
               Start growing with Summarist now
             </div>
+
             <div className="numbers__wrapper">
               <div className="numbers">
                 <div className="numbers__icon">
@@ -243,6 +257,7 @@ export default function Home() {
                   Downloads on all platforms
                 </div>
               </div>
+
               <div className="numbers">
                 <div className="numbers__icon numbers__star--icon">
                   <BsStarFill />
@@ -253,19 +268,21 @@ export default function Home() {
                   Average ratings on iOS and Google Play
                 </div>
               </div>
+
               <div className="numbers">
                 <div className="numbers__icon">
                   <RiLeafLine />
                 </div>
                 <div className="numbers__title">97%</div>
                 <div className="numbers__sub--title">
-                  Of Summarist members create a better reading habit
+                  Of members created better habits
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
       <section id="footer">
         <div className="container">
           <div className="row">
@@ -347,6 +364,21 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <div>
+        <button onClick={openModal}>Open Login Modal</button>
+
+        <LoginModal isOpen={isModalOpen} onClose={closeModal}>
+          <h2>Login to Summarist</h2>
+          <button onClick={() => alert("Email Login")}>Login with Email</button>
+          <button
+            onClick={() => alert("Guest Login")}
+            style={{ marginTop: "1rem" }}
+          >
+            Continue as Guest
+          </button>
+        </LoginModal>
+      </div>
     </div>
   );
 }
