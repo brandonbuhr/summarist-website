@@ -6,6 +6,7 @@ import { BiCrown } from "react-icons/bi";
 import { BsFillStarFill, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { RiLeafLine } from "react-icons/ri";
 import LoginModal from "./components/LoginModal";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -369,14 +370,61 @@ export default function Home() {
         <button onClick={openModal}>Open Login Modal</button>
 
         <LoginModal isOpen={isModalOpen} onClose={closeModal}>
-          <h2>Login to Summarist</h2>
-          <button onClick={() => alert("Email Login")}>Login with Email</button>
+          <h2 className="modal-title">Log in to Summarist</h2>
+
           <button
+            className="modal-button guest-login"
             onClick={() => alert("Guest Login")}
-            style={{ marginTop: "1rem" }}
           >
-            Continue as Guest
+            Login as a Guest
           </button>
+
+          <div className="modal-divider">
+            <hr />
+            <span>or</span>
+            <hr />
+          </div>
+
+          <button
+            className="modal-button google-login"
+            onClick={() => alert("Google Login")}
+          >
+            <FcGoogle />
+            Login with Google
+          </button>
+
+          <div className="modal-divider">
+            <hr />
+            <span>or</span>
+            <hr />
+          </div>
+
+          <input
+            type="email"
+            placeholder="Email Address"
+            className="modal-input"
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            className="modal-input"
+          />
+
+          <button
+            className="modal-button login-submit"
+            onClick={() => alert("Email/Password Login")}
+          >
+            Login
+          </button>
+
+          <div className="modal-link">
+            <a href="#">Forgot your password?</a>
+          </div>
+
+          <div className="modal-link">
+            <a href="#">Don't have an account?</a>
+          </div>
         </LoginModal>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
-import styles from "./LoginModal.module.css";
+import { IoMdCloseCircle } from "react-icons/io";
+
 type LoginModalProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -14,12 +15,11 @@ export default function LoginModal({
   if (!isOpen) return null;
 
   return (
-    <div className={styles["modal-overlay"]}>
-      <div className={styles["modal-content"]}>
-        <button className={styles["modal-close"]} onClick={onClose}>
-          ✕
+    <div className="modal-overlay">
+      <div className="modal">
+        <button className="modal-close" onClick={onClose}>
+          <IoMdCloseCircle />
         </button>
-
         {children}
       </div>
     </div>
