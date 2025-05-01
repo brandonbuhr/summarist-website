@@ -369,63 +369,7 @@ export default function Home() {
       <div>
         <button onClick={openModal}>Open Login Modal</button>
 
-        <LoginModal isOpen={isModalOpen} onClose={closeModal}>
-          <h2 className="modal-title">Log in to Summarist</h2>
-
-          <button
-            className="modal-button guest-login"
-            onClick={() => alert("Guest Login")}
-          >
-            Login as a Guest
-          </button>
-
-          <div className="modal-divider">
-            <hr />
-            <span>or</span>
-            <hr />
-          </div>
-
-          <button
-            className="modal-button google-login"
-            onClick={() => alert("Google Login")}
-          >
-            <FcGoogle />
-            Login with Google
-          </button>
-
-          <div className="modal-divider">
-            <hr />
-            <span>or</span>
-            <hr />
-          </div>
-
-          <input
-            type="email"
-            placeholder="Email Address"
-            className="modal-input"
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            className="modal-input"
-          />
-
-          <button
-            className="modal-button login-submit"
-            onClick={() => alert("Email/Password Login")}
-          >
-            Login
-          </button>
-
-          <div className="modal-link">
-            <a href="#">Forgot your password?</a>
-          </div>
-
-          <div className="modal-link">
-            <a href="#">Don't have an account?</a>
-          </div>
-        </LoginModal>
+        <LoginModal isOpen={isModalOpen} onClose={closeModal}></LoginModal>
       </div>
     </div>
   );
