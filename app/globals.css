@@ -84,109 +84,87 @@ button:disabled {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;
+  z-index: 1000;
 }
 
 .modal {
+  position: relative;
   background: white;
   padding: 2rem;
   border-radius: 8px;
-  position: relative;
-  min-width: 300px;
-  max-width: 90%;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .modal-close {
   position: absolute;
-  top: 0.5rem;
+  top: 0.75rem;
   right: 0.75rem;
-  background: none;
+  background: transparent;
   border: none;
-  font-size: 2.4rem;
+  font-size: 1.5rem;
+  color: #555;
   cursor: pointer;
 }
-.modal-close:hover {
-  scale: 1.1;
-}
+
 .modal-title {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.modal-button {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: large;
-}
-
-.guest-login {
-  background-color: #3b5998;
-  color: white;
-}
-
-.google-login {
-  background-color: #4285f4;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.google-icon {
-  width: 20px;
-  margin-right: 8px;
-}
-
-.login-submit {
-  background-color: #28a745;
-  color: white;
-}
-
-.modal-divider {
-  display: flex;
-  align-items: center;
-  margin: 10px 0;
-}
-
-.modal-divider hr {
-  flex: 1;
-  border: 1px solid #ccc;
-}
-
-.modal-divider span {
-  margin: 0 10px;
-  color: #888;
-  font-size: 14px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 .modal-input {
+  display: block;
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
   border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.modal-link {
-  text-align: center;
-  margin-top: 8px;
+.modal-error {
+  color: red;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
 }
 
-.modal-link a {
-  color: #007bff;
-  font-size: 14px;
-  text-decoration: none;
+.modal-button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-button.primary {
+  background-color: #1d4ed8;
+  color: white;
+}
+
+.modal-button.secondary {
+  background-color: #10b981;
+  color: white;
+}
+
+.modal-button.outline {
+  background-color: transparent;
+  border: 2px solid #555;
+  color: #555;
+}
+
+.modal-button.danger {
+  background-color: #dc2626;
+  color: white;
 }
 
 /* HOME */

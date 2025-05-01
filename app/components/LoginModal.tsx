@@ -25,7 +25,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       await signInWithEmailAndPassword(auth, email, password);
       onClose();
     } catch (err: any) {
-      setError(err.message);
+      setError("Uh uh uh... you didn't say the magic word!");
     }
   };
 
@@ -63,10 +63,10 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           <IoMdCloseCircle />
         </button>
 
-        <h2 className="text-xl font-bold mb-4">Login to Summarist</h2>
+        <h2 className="modal-title">Login to Summarist</h2>
 
         <input
-          className="input mb-2"
+          className="modal-input"
           type="email"
           placeholder="Email"
           value={email}
@@ -74,26 +74,23 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         />
 
         <input
-          className="input mb-4"
+          className="modal-input"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+        {error && <p className="modal-error">{error}</p>}
 
-        <button className="btn-primary w-full mb-2" onClick={handleLogin}>
+        <button className="modal-button primary" onClick={handleLogin}>
           Login
         </button>
-        <button className="btn-secondary w-full mb-2" onClick={handleSignup}>
+        <button className="modal-button secondary" onClick={handleSignup}>
           Create Account
         </button>
-        <button className="btn-outline w-full mb-2" onClick={handleGuestLogin}>
+        <button className="modal-button outline" onClick={handleGuestLogin}>
           Continue as Guest
-        </button>
-        <button className="btn-danger w-full" onClick={handleLogout}>
-          Logout
         </button>
       </div>
     </div>
