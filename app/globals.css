@@ -152,7 +152,7 @@ button:disabled {
 }
 
 .modal-button.secondary {
-  background-color: #10b981;
+  background-color: #20ba68;
   color: white;
 }
 
@@ -160,11 +160,6 @@ button:disabled {
   background-color: transparent;
   border: 2px solid #555;
   color: #555;
-}
-
-.modal-button.danger {
-  background-color: #dc2626;
-  color: white;
 }
 
 /* HOME */

@@ -1,65 +1,90 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { IoMdCloseCircle } from "react-icons/io";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInAnonymously,
-  signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
-import { auth } from "@/firebase/firebaseClient";
+import { auth } from "../../firebase/firebaseClient";
+import { useAuthModal } from "@/context/AuthModalContext";
 
-type LoginModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
-
-export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
+export default function LoginModal() {
+  const { isOpen, closeModal } = useAuthModal();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+      } else {
+      }
+    });
+  }, []);
 
   if (!isOpen) return null;
 
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      onClose();
+      router.push("/for-you");
+      closeModal();
     } catch (err: any) {
-      setError("Uh uh uh... you didn't say the magic word!");
+      switch (err.code) {
+        case "auth/invalid-email":
+          setError("Invalid email format.");
+          break;
+        case "auth/user-not-found":
+          setError("User not found.");
+          break;
+        case "auth/wrong-password":
+          setError("Incorrect password.");
+          break;
+        default:
+          setError("Login failed. Please try again.");
+      }
     }
   };
 
   const handleSignup = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      onClose();
+      router.push("/for-you");
+      closeModal();
     } catch (err: any) {
-      setError(err.message);
+      switch (err.code) {
+        case "auth/invalid-email":
+          setError("Invalid email format.");
+          break;
+        case "auth/weak-password":
+          setError("Password should be at least 6 characters.");
+          break;
+        case "auth/email-already-in-use":
+          setError("Email is already in use.");
+          break;
+        default:
+          setError("Registration failed. Please try again.");
+      }
     }
   };
 
   const handleGuestLogin = async () => {
     try {
-      await signInAnonymously(auth);
-      onClose();
-    } catch (err: any) {
-      setError(err.message);
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      onClose();
-    } catch (err: any) {
-      setError(err.message);
+      await signInWithEmailAndPassword(auth, "guest@gmail.com", "guest123");
+      router.push("/for-you");
+      closeModal();
+    } catch {
+      setError("Guest login failed.");
     }
   };
 
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <button className="modal-close" onClick={onClose}>
+        <button className="modal-close" onClick={closeModal}>
           <IoMdCloseCircle />
         </button>
 
