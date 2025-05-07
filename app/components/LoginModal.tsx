@@ -73,10 +73,11 @@ export default function LoginModal() {
 
   const handleGuestLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, "guest@gmail.com", "guest123");
+      await signInAnonymously(auth);
       router.push("/for-you");
       closeModal();
-    } catch {
+    } catch (err: any) {
+      console.error(err);
       setError("Guest login failed.");
     }
   };
