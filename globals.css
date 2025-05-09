@@ -160,3 +160,16 @@ button:disabled {
   border: 2px solid #555;
   color: #555;
 }
+
+/* SIDEBAR */
+
+.sidebar-container {
+  padding: 16px;
+}
+
+/* DASHBOARD */
+
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}

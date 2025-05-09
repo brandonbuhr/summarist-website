@@ -4,8 +4,14 @@ import ForYouContent from "@/components/ForYouContent";
 export default function ForYou() {
   return (
     <>
-      <Sidebar />
-      <ForYouContent />
+      <div className="dashboard-container">
+        <div className="sidebar-container">
+          <Sidebar />
+        </div>
+        <div>
+          <ForYouContent />
+        </div>
+      </div>
     </>
   );
 }
