@@ -79,6 +79,7 @@ button:disabled {
 }
 
 /* LOGIN MODAL */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -161,15 +162,52 @@ button:disabled {
   color: #555;
 }
 
-/* SIDEBAR */
-
-.sidebar-container {
-  padding: 16px;
-}
-
 /* DASHBOARD */
 
 .dashboard-container {
   display: flex;
   height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar-container {
+  padding: 16px;
+}
+.sidebar {
+  height: 100vh;
+  width: 250px;
+  background-color: #f9fcfb;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.sidebar-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #002b45;
+  margin-bottom: 40px;
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sidebar-nav li {
+  color: #002b45;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.sidebar-nav li:hover {
+  color: #1a4f70;
 }
