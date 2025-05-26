@@ -36,6 +36,30 @@ export default function ChoosePlan() {
 
     return () => unsubscribe();
   }, [openModal]);
+  const handleUpgrade = async () => {
+    try {
+      const res = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user.uid }),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text);
+      }
+
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert("Checkout session was not created.");
+      }
+    } catch (err: any) {
+      console.error("Stripe Checkout error:", err);
+      alert(err.message || "Something went wrong. Please try again.");
+    }
+  };
 
   const renderPill = (plan: string) => {
     if (currentPlan === plan) {
@@ -65,18 +89,22 @@ export default function ChoosePlan() {
             </ul>
           </div>
 
-          <div className="plan-card-outline">
-            <div className="plan-header">
-              <h3>Premium</h3>
-              {renderPill("Premium")}
-            </div>
-            <p>$9.99 / month</p>
-            <ul>
-              <li>Access all premium books</li>
-              <li>Read and Listen instantly</li>
-              <li>Support the author</li>
-            </ul>
-          </div>
+          {currentPlan !== "Premium" && (
+            <button onClick={handleUpgrade}>
+              <div className="plan-card-outline">
+                <div className="plan-header">
+                  <h3>Premium</h3>
+                  {renderPill("Premium")}
+                </div>
+                <p>$9.99 / month</p>
+                <ul>
+                  <li>Access all premium books</li>
+                  <li>Read and Listen instantly</li>
+                  <li>Support the author</li>
+                </ul>
+              </div>
+            </button>
+          )}
         </div>
       </div>
     </div>

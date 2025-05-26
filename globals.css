@@ -561,6 +561,7 @@ button:disabled {
 .plan-button:hover {
   background-color: #004063;
 }
+
 .plan-button.downgrade {
   background-color: #ccc;
   color: #000;

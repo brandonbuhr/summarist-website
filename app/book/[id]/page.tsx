@@ -170,6 +170,13 @@ export default function BookPage() {
                 <p>🧠 {book.keyIdeas} Key Ideas</p>
               </div>
 
+              <div className="book-tags">
+                {book.tags.map((tag) => (
+                  <span key={tag} className="book-tag">
+                    {tag}
+                  </span>
+                ))}
+              </div>
               <div className="book-detail-buttons">
                 <button
                   className="read-button"
@@ -191,14 +198,6 @@ export default function BookPage() {
                 >
                   {isInLibrary ? "Remove from My Library" : "Add to My Library"}
                 </button>
-              </div>
-
-              <div className="book-tags">
-                {book.tags.map((tag) => (
-                  <span key={tag} className="book-tag">
-                    {tag}
-                  </span>
-                ))}
               </div>
             </div>
           </div>
