@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { IoMdCloseCircle } from "react-icons/io";
@@ -5,9 +7,9 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInAnonymously,
-  onAuthStateChanged,
 } from "firebase/auth";
-import { auth } from "../../firebase/firebaseClient";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "@firebase/firebaseClient";
 import { useAuthModal } from "@/context/AuthModalContext";
 
 export default function LoginModal() {
@@ -16,14 +18,6 @@ export default function LoginModal() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-      } else {
-      }
-    });
-  }, []);
 
   if (!isOpen) return null;
 
@@ -51,7 +45,19 @@ export default function LoginModal() {
 
   const handleSignup = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      // Set default subscription to Basic
+      await setDoc(doc(db, "users", user.uid, "subscription", "status"), {
+        isActive: false,
+        plan: "Basic",
+      });
+
       router.push("/for-you");
       closeModal();
     } catch (err: any) {
@@ -73,7 +79,15 @@ export default function LoginModal() {
 
   const handleGuestLogin = async () => {
     try {
-      await signInAnonymously(auth);
+      const result = await signInAnonymously(auth);
+      const user = result.user;
+
+      // Set default subscription to Basic
+      await setDoc(doc(db, "users", user.uid, "subscription", "status"), {
+        isActive: false,
+        plan: "Basic",
+      });
+
       router.push("/for-you");
       closeModal();
     } catch (err: any) {
