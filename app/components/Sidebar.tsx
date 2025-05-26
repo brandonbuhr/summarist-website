@@ -1,6 +1,22 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signOut } from "firebase/auth";
+import { auth } from "@firebase/firebaseClient";
 
 export default function Sidebar() {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.push("/");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar-top">
@@ -15,7 +31,6 @@ export default function Sidebar() {
           <Link href="/highlights">
             <li>Highlights</li>
           </Link>
-
           <li>Search</li>
         </ul>
       </div>
@@ -26,7 +41,9 @@ export default function Sidebar() {
             <li>Settings</li>
           </Link>
           <li>Help & Support</li>
-          <li>Logout</li>
+          <li onClick={handleLogout} style={{ cursor: "pointer" }}>
+            Logout
+          </li>
         </ul>
       </div>
     </div>

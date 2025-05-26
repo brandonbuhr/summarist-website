@@ -364,6 +364,7 @@ button:disabled {
 .library-button {
   background-color: #f0f0f0;
   color: #002b45;
+  font-size: 16px;
 }
 
 .book-detail-buttons button:hover {
@@ -409,12 +410,24 @@ button:disabled {
 
 .book-tag {
   background-color: #e0f2f1;
-  color: #004d40;
   font-size: 16px;
   padding: 6px 12px;
   border-radius: 14px;
   margin-right: 8px;
   display: inline-block;
+}
+.back-button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 0;
+}
+
+.back-button:hover {
+  text-decoration: underline;
 }
 
 /* SUBSCRIPTION PAGE */
@@ -475,4 +488,84 @@ button:disabled {
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+/* PLAYER PAGE */
+
+.player-subtitle {
+  font-size: 16px;
+  margin-top: 4px;
+}
+
+.player-author {
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+.book-summary {
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* SETTINGS PAGE */
+
+.not-logged-in {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.primary-button {
+  padding: 10px 16px;
+  font-weight: bold;
+  background-color: #002b45;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+.primary-button:hover {
+  background-color: #004063;
+}
+
+.settings-panel {
+  margin-top: 32px;
+}
+
+.settings-item {
+  margin-bottom: 24px;
+}
+
+.plan-label {
+  background-color: #e0f2f1;
+  color: #004d40;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 14px;
+  font-weight: bold;
+  margin-top: 6px;
+  text-transform: capitalize;
+}
+
+.plan-button {
+  margin-top: 12px;
+  background-color: #002b45;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.plan-button:hover {
+  background-color: #004063;
+}
+.plan-button.downgrade {
+  background-color: #ccc;
+  color: #000;
+}
+
+.plan-button.downgrade:hover {
+  background-color: #bbb;
 }

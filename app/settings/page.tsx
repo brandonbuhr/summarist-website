@@ -1,14 +1,120 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, db } from "@firebase/firebaseClient";
 import Sidebar from "@/components/Sidebar";
+import { useAuthModal } from "@/context/AuthModalContext";
 import "/globals.css";
-export default function Settings() {
+
+export default function SettingsPage() {
+  const [user, setUser] = useState<any>(null);
+  const [plan, setPlan] = useState<"basic" | "premium" | "premium-plus" | null>(
+    null
+  );
+  const { openModal } = useAuthModal();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        setUser(firebaseUser);
+
+        const subRef = doc(
+          db,
+          "users",
+          firebaseUser.uid,
+          "subscription",
+          "status"
+        );
+        const subSnap = await getDoc(subRef);
+        if (subSnap.exists()) {
+          const data = subSnap.data();
+          const planType = data.plan?.toLowerCase() || "basic";
+          setPlan(planType as "basic" | "premium" | "premium-plus");
+        } else {
+          setPlan("basic");
+        }
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <>
-      <div className="dashboard-container">
-        <div className="sidebar-container">
-          <Sidebar />
-        </div>
-        <div></div>
+    <div className="dashboard-container">
+      <div className="sidebar-container">
+        <Sidebar />
       </div>
-    </>
+
+      <div className="content-container">
+        <h2>Settings</h2>
+
+        {!user ? (
+          <div className="not-logged-in">
+            <img src="/login-placeholder.png" alt="Please log in" width="200" />
+            <p>You’re not logged in.</p>
+            <button className="primary-button" onClick={openModal}>
+              Log In
+            </button>
+          </div>
+        ) : (
+          <div className="settings-panel">
+            <div className="settings-item">
+              <h4>Subscription Plan</h4>
+              <p className="plan-label">{plan ?? "Loading..."}</p>
+
+              {plan === "basic" && (
+                <button
+                  className="plan-button"
+                  onClick={() => (window.location.href = "/choose-plan")}
+                >
+                  Upgrade to Premium
+                </button>
+              )}
+
+              {plan === "premium" && (
+                <button
+                  className="plan-button downgrade"
+                  onClick={async () => {
+                    try {
+                      const subRef = doc(
+                        db,
+                        "users",
+                        user.uid,
+                        "subscription",
+                        "status"
+                      );
+                      await setDoc(subRef, {
+                        isActive: false,
+                        plan: "Basic",
+                      });
+                      setPlan("basic");
+                      alert("You have been downgraded to Basic.");
+                    } catch (err) {
+                      console.error("Failed to downgrade:", err);
+                      alert("Something went wrong. Please try again.");
+                    }
+                  }}
+                >
+                  Downgrade to Basic
+                </button>
+              )}
+            </div>
+
+            <div className="settings-item">
+              <h4>Email</h4>
+              {user.email ? (
+                <p>{user.email}</p>
+              ) : (
+                <p className="muted">No email available (guest login)</p>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
