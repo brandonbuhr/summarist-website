@@ -8,18 +8,18 @@ import Sidebar from "@/components/Sidebar";
 import { useAuthModal } from "@/context/AuthModalContext";
 import "/globals.css";
 
+type PlanType = "basic" | "premium" | "premium-plus";
+
 export default function SettingsPage() {
   const [user, setUser] = useState<any>(null);
-  const [plan, setPlan] = useState<"basic" | "premium" | "premium-plus" | null>(
-    null
-  );
+  const [plan, setPlan] = useState<PlanType | null>(null);
+  const [loading, setLoading] = useState(true);
   const { openModal } = useAuthModal();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         setUser(firebaseUser);
-
         const subRef = doc(
           db,
           "users",
@@ -27,16 +27,25 @@ export default function SettingsPage() {
           "subscription",
           "status"
         );
-        const subSnap = await getDoc(subRef);
-        if (subSnap.exists()) {
-          const data = subSnap.data();
-          const planType = data.plan?.toLowerCase() || "basic";
-          setPlan(planType as "basic" | "premium" | "premium-plus");
-        } else {
+
+        try {
+          const subSnap = await getDoc(subRef);
+          if (subSnap.exists()) {
+            const data = subSnap.data();
+            const planType = (data.plan?.toLowerCase() || "basic") as PlanType;
+            setPlan(planType);
+          } else {
+            setPlan("basic");
+          }
+        } catch (err) {
+          console.error("Failed to fetch subscription status:", err);
           setPlan("basic");
+        } finally {
+          setLoading(false);
         }
       } else {
         setUser(null);
+        setLoading(false);
       }
     });
 
@@ -52,7 +61,9 @@ export default function SettingsPage() {
       <div className="content-container">
         <h2>Settings</h2>
 
-        {!user ? (
+        {loading ? (
+          <p>Loading...</p>
+        ) : !user ? (
           <div className="not-logged-in">
             <img src="/login-placeholder.png" alt="Please log in" width="200" />
             <p>You’re not logged in.</p>
@@ -64,7 +75,7 @@ export default function SettingsPage() {
           <div className="settings-panel">
             <div className="settings-item">
               <h4>Subscription Plan</h4>
-              <p className="plan-label">{plan ?? "Loading..."}</p>
+              <p className="plan-label">{plan}</p>
 
               {plan === "basic" && (
                 <button
@@ -90,6 +101,7 @@ export default function SettingsPage() {
                       await setDoc(subRef, {
                         isActive: false,
                         plan: "Basic",
+                        updatedAt: new Date().toISOString(),
                       });
                       setPlan("basic");
                       alert("You have been downgraded to Basic.");

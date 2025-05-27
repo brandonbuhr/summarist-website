@@ -22,7 +22,6 @@ export async function POST(req: NextRequest) {
     const { userId } = body;
 
     if (!userId) {
-      console.warn("⚠️ Missing userId in request body");
       return NextResponse.json({ error: "Missing userId" }, { status: 400 });
     }
 
@@ -30,7 +29,6 @@ export async function POST(req: NextRequest) {
     const email = firebaseUser.email;
 
     if (!email) {
-      console.warn("⚠️ Email not found for Firebase user");
       return NextResponse.json({ error: "Email not found" }, { status: 400 });
     }
 
@@ -47,14 +45,25 @@ export async function POST(req: NextRequest) {
       metadata: {
         uid: userId,
       },
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/settings`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/settings?success=true`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/choose-plan`,
     });
 
-    console.log("✅ Created Stripe checkout session:", session.id);
+    // Temporary front-end workaround: immediately set Premium status for demo/testing
+    await admin
+      .firestore()
+      .collection("users")
+      .doc(userId)
+      .collection("subscription")
+      .doc("status")
+      .set({
+        isActive: true,
+        plan: "Premium",
+        updatedAt: new Date().toISOString(),
+      });
+
     return NextResponse.json({ url: session.url });
   } catch (err: any) {
-    console.error("❌ Stripe checkout session creation failed:", err.message);
     return NextResponse.json({ error: "Failed to create checkout session" }, { status: 500 });
   }
 }
