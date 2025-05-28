@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "@firebase/firebaseClient";
 import Sidebar from "@/components/Sidebar";
 import { useAuthModal } from "@/context/AuthModalContext";
@@ -75,45 +75,18 @@ export default function SettingsPage() {
           <div className="settings-panel">
             <div className="settings-item">
               <h4>Subscription Plan</h4>
-              <p className="plan-label">{plan}</p>
-
-              {plan === "basic" && (
-                <button
-                  className="plan-button"
-                  onClick={() => (window.location.href = "/choose-plan")}
-                >
-                  Upgrade to Premium
-                </button>
-              )}
-
-              {plan === "premium" && (
-                <button
-                  className="plan-button downgrade"
-                  onClick={async () => {
-                    try {
-                      const subRef = doc(
-                        db,
-                        "users",
-                        user.uid,
-                        "subscription",
-                        "status"
-                      );
-                      await setDoc(subRef, {
-                        isActive: false,
-                        plan: "Basic",
-                        updatedAt: new Date().toISOString(),
-                      });
-                      setPlan("basic");
-                      alert("You have been downgraded to Basic.");
-                    } catch (err) {
-                      console.error("Failed to downgrade:", err);
-                      alert("Something went wrong. Please try again.");
-                    }
-                  }}
-                >
-                  Downgrade to Basic
-                </button>
-              )}
+              <p
+                className="plan-label"
+                style={{ color: "green", fontWeight: "bold" }}
+              >
+                {plan}
+              </p>
+              <button
+                className="plan-button"
+                onClick={() => (window.location.href = "/choose-plan")}
+              >
+                Change Subscription Plan
+              </button>
             </div>
 
             <div className="settings-item">

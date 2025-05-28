@@ -34,8 +34,9 @@ export default function BookPage() {
 
   const [book, setBook] = useState<Book | null>(null);
   const [user, setUser] = useState<any>(null);
-  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
-  const [isInLibrary, setIsInLibrary] = useState<boolean>(false);
+  const [plan, setPlan] = useState("basic");
+  const [checkingAccess, setCheckingAccess] = useState(true);
+  const [isInLibrary, setIsInLibrary] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -51,8 +52,10 @@ export default function BookPage() {
         );
         const subSnap = await getDoc(subRef);
         const data = subSnap.exists() ? subSnap.data() : null;
-        setIsSubscribed(data?.isActive === true);
+        const userPlan = (data?.plan?.toLowerCase() || "basic") as string;
+        setPlan(userPlan);
       }
+      setCheckingAccess(false);
     });
 
     return () => unsubscribe();
@@ -88,8 +91,12 @@ export default function BookPage() {
 
   const handleAction = (type: "read" | "listen") => {
     if (!user) return openModal();
+    if (checkingAccess) return;
 
-    if (book?.subscriptionRequired && !isSubscribed) {
+    const normalizedPlan = plan.toLowerCase();
+    const hasAccess = ["premium", "premium-annual"].includes(normalizedPlan);
+
+    if (book?.subscriptionRequired && !hasAccess) {
       router.push("/choose-plan");
     } else {
       router.push(`/player/${book?.id}`);
@@ -164,10 +171,10 @@ export default function BookPage() {
 
               <div className="book-stats">
                 <p>
-                  ⭐ {book.averageRating} ({book.totalRating} ratings)
+                  {book.averageRating} ({book.totalRating} ratings)
                 </p>
-                <p>📚 {book.type}</p>
-                <p>🧠 {book.keyIdeas} Key Ideas</p>
+                <p>{book.type}</p>
+                <p>{book.keyIdeas} Key Ideas</p>
               </div>
 
               <div className="book-tags">

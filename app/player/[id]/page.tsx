@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
-import { getDoc, doc, setDoc, deleteDoc } from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 import { auth, db } from "@firebase/firebaseClient";
 import { useAuthModal } from "@/context/AuthModalContext";
 import Sidebar from "@/components/Sidebar";
@@ -34,31 +34,31 @@ export default function PlayerPage() {
 
   const [book, setBook] = useState<Book | null>(null);
   const [user, setUser] = useState<any>(null);
-  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
+  const [plan, setPlan] = useState("basic");
+  const [checkingAccess, setCheckingAccess] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (!firebaseUser) {
-        openModal();
-        return;
-      }
-
       setUser(firebaseUser);
 
-      const subRef = doc(
-        db,
-        "users",
-        firebaseUser.uid,
-        "subscription",
-        "status"
-      );
-      const subSnap = await getDoc(subRef);
-      const data = subSnap.exists() ? subSnap.data() : null;
-      setIsSubscribed(data?.isActive === true);
+      if (firebaseUser) {
+        const subRef = doc(
+          db,
+          "users",
+          firebaseUser.uid,
+          "subscription",
+          "status"
+        );
+        const subSnap = await getDoc(subRef);
+        const data = subSnap.exists() ? subSnap.data() : null;
+        const userPlan = (data?.plan?.toLowerCase() || "basic") as string;
+        setPlan(userPlan);
+      }
+      setCheckingAccess(false);
     });
 
     return () => unsubscribe();
-  }, [openModal]);
+  }, []);
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -77,12 +77,13 @@ export default function PlayerPage() {
   }, [params?.id]);
 
   useEffect(() => {
-    if (book && user) {
-      if (book.subscriptionRequired && !isSubscribed) {
+    if (!checkingAccess && book && user) {
+      const hasAccess = ["premium", "premium-annual"].includes(plan);
+      if (book.subscriptionRequired && !hasAccess) {
         router.push("/choose-plan");
       }
     }
-  }, [book, isSubscribed, router, user]);
+  }, [book, plan, checkingAccess, router, user]);
 
   if (!book) return <p>Loading book...</p>;
 

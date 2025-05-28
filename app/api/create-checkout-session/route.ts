@@ -19,17 +19,22 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { userId } = body;
+    const { userId, planType } = body;
 
-    if (!userId) {
-      return NextResponse.json({ error: "Missing userId" }, { status: 400 });
+    if (!userId || !planType) {
+      return NextResponse.json({ error: "Missing userId or planType" }, { status: 400 });
     }
+
+    const priceId =
+      planType === "annual"
+        ? process.env.STRIPE_PRICE_ID_ANNUAL
+        : process.env.STRIPE_PRICE_ID_MONTHLY;
 
     const firebaseUser = await admin.auth().getUser(userId);
     const email = firebaseUser.email;
 
-    if (!email) {
-      return NextResponse.json({ error: "Email not found" }, { status: 400 });
+    if (!email || !priceId) {
+      return NextResponse.json({ error: "Invalid email or price ID" }, { status: 400 });
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -37,33 +42,22 @@ export async function POST(req: NextRequest) {
       payment_method_types: ["card"],
       line_items: [
         {
-          price: process.env.STRIPE_PRICE_ID!,
+          price: priceId,
           quantity: 1,
         },
       ],
       customer_email: email,
       metadata: {
         uid: userId,
+        plan: planType,
       },
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/settings?success=true`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/choose-plan`,
     });
 
-    // Temporary front-end workaround: immediately set Premium status for demo/testing
-    await admin
-      .firestore()
-      .collection("users")
-      .doc(userId)
-      .collection("subscription")
-      .doc("status")
-      .set({
-        isActive: true,
-        plan: "Premium",
-        updatedAt: new Date().toISOString(),
-      });
-
     return NextResponse.json({ url: session.url });
-  } catch (err: any) {
+  } catch (err) {
+    console.error("Stripe session error:", err);
     return NextResponse.json({ error: "Failed to create checkout session" }, { status: 500 });
   }
 }

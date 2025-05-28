@@ -1,18 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db } from "@firebase/firebaseClient";
 import Sidebar from "@/components/Sidebar";
 import { useAuthModal } from "@/context/AuthModalContext";
-import "/globals.css";
+import "@/globals.css";
 
 export default function ChoosePlan() {
-  const [user, setUser] = useState<any>(null);
-  const [currentPlan, setCurrentPlan] = useState<"Basic" | "Premium" | null>(
-    null
-  );
+  const [user, setUser] = useState<User | null>(null);
+  const [currentPlan, setCurrentPlan] = useState<string | null>(null);
   const { openModal } = useAuthModal();
 
   useEffect(() => {
@@ -36,37 +34,41 @@ export default function ChoosePlan() {
 
     return () => unsubscribe();
   }, [openModal]);
-  const handleUpgrade = async () => {
+
+  const handleUpgrade = async (planType: string) => {
+    if (!user) return openModal();
+
     try {
-      const res = await fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: user.uid }),
+      const subRef = doc(db, "users", user.uid, "subscription", "status");
+      const selectedPlan =
+        planType === "basic"
+          ? "Basic"
+          : planType === "annual"
+          ? "Premium-Annual"
+          : "Premium";
+
+      await setDoc(subRef, {
+        isActive: selectedPlan !== "Basic",
+        plan: selectedPlan,
+        updatedAt: new Date().toISOString(),
       });
 
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text);
-      }
-
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert("Checkout session was not created.");
-      }
-    } catch (err: any) {
-      console.error("Stripe Checkout error:", err);
-      alert(err.message || "Something went wrong. Please try again.");
+      alert(
+        "Plan changed to " +
+          selectedPlan +
+          "\nStripe checkout disabled for testing"
+      );
+      setCurrentPlan(selectedPlan);
+    } catch (err) {
+      console.error("Upgrade failed:", err);
+      alert("Failed to change plan. Try again.");
     }
   };
 
-  const renderPill = (plan: string) => {
-    if (currentPlan === plan) {
-      return <span className="plan-pill">Current Plan</span>;
-    }
-    return null;
-  };
+  const renderPill = (plan: string) =>
+    currentPlan === plan ? (
+      <span className="plan-pill">Current Plan</span>
+    ) : null;
 
   return (
     <div className="dashboard-container">
@@ -77,34 +79,58 @@ export default function ChoosePlan() {
         <h2>Choose Your Plan</h2>
 
         <div className="plan-container">
-          <div className="plan-card-outline">
-            <div className="plan-header">
-              <h3>Basic</h3>
-              {renderPill("Basic")}
-            </div>
-            <p>Free forever</p>
-            <ul>
-              <li>Access to free books</li>
-              <li>Save to My Library</li>
-            </ul>
-          </div>
-
-          {currentPlan !== "Premium" && (
-            <button onClick={handleUpgrade}>
-              <div className="plan-card-outline">
-                <div className="plan-header">
-                  <h3>Premium</h3>
-                  {renderPill("Premium")}
-                </div>
-                <p>$9.99 / month</p>
-                <ul>
-                  <li>Access all premium books</li>
-                  <li>Read and Listen instantly</li>
-                  <li>Support the author</li>
-                </ul>
+          <button
+            onClick={() => handleUpgrade("basic")}
+            disabled={currentPlan === "Basic"}
+          >
+            <div className="plan-card-outline">
+              <div className="plan-header">
+                <h3>Basic</h3>
+                {renderPill("Basic")}
               </div>
-            </button>
-          )}
+              <p>Free forever</p>
+              <ul>
+                <li>Access to free books</li>
+                <li>Save to My Library</li>
+              </ul>
+            </div>
+          </button>
+
+          <button
+            onClick={() => handleUpgrade("monthly")}
+            disabled={currentPlan === "Premium"}
+          >
+            <div className="plan-card-outline">
+              <div className="plan-header">
+                <h3>Premium</h3>
+                {renderPill("Premium")}
+              </div>
+              <p>$9.99 / month</p>
+              <ul>
+                <li>Access all premium books</li>
+                <li>Read and Listen instantly</li>
+                <li>Support the author</li>
+              </ul>
+            </div>
+          </button>
+
+          <button
+            onClick={() => handleUpgrade("annual")}
+            disabled={currentPlan === "Premium-Annual"}
+          >
+            <div className="plan-card-outline">
+              <div className="plan-header">
+                <h3>Premium Annual</h3>
+                {renderPill("Premium-Annual")}
+              </div>
+              <p>$107.89 / year (Save 10%)</p>
+              <ul>
+                <li>All Premium features</li>
+                <li>Billed once annually</li>
+                <li>Best value</li>
+              </ul>
+            </div>
+          </button>
         </div>
       </div>
     </div>
