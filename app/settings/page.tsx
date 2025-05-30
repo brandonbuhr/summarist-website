@@ -6,7 +6,6 @@ import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "@firebase/firebaseClient";
 import Sidebar from "@/components/Sidebar";
 import { useAuthModal } from "@/context/AuthModalContext";
-import "/globals.css";
 import SearchBar from "@/components/SearchBar";
 
 type PlanType = "basic" | "premium" | "premium-plus";

@@ -6,7 +6,6 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db } from "@firebase/firebaseClient";
 import Sidebar from "@/components/Sidebar";
 import { useAuthModal } from "@/context/AuthModalContext";
-import "@/globals.css";
 
 export default function ChoosePlan() {
   const [user, setUser] = useState<User | null>(null);
