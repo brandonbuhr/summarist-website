@@ -12,6 +12,12 @@ body {
   overflow-x: hidden;
 }
 
+h2 {
+  font-size: 32px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
 h3 {
   font-size: 24px;
   padding-top: 32px;
@@ -569,4 +575,41 @@ button:disabled {
 
 .plan-button.downgrade:hover {
   background-color: #bbb;
+}
+
+/* SEARCH BAR */
+.search-bar {
+  position: relative;
+  margin: 1rem 0;
+  width: 100%;
+  max-width: 600px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+}
+
+.search-results {
+  position: absolute;
+  width: 100%;
+  background: white;
+  border: 1px solid #ddd;
+  border-top: none;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.search-result {
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.search-result:hover {
+  background-color: #f0f0f0;
 }

@@ -7,6 +7,7 @@ import { auth, db } from "@firebase/firebaseClient";
 import Sidebar from "@/components/Sidebar";
 import { useAuthModal } from "@/context/AuthModalContext";
 import "/globals.css";
+import SearchBar from "@/components/SearchBar";
 
 type PlanType = "basic" | "premium" | "premium-plus";
 
@@ -57,7 +58,9 @@ export default function SettingsPage() {
       <div className="sidebar-container">
         <Sidebar />
       </div>
-
+      <div>
+        <SearchBar />
+      </div>
       <div className="content-container">
         <h2>Settings</h2>
 

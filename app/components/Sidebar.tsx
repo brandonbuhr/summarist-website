@@ -28,10 +28,12 @@ export default function Sidebar() {
           <Link href="/my-library">
             <li>My Library</li>
           </Link>
-          <Link href="/highlights">
-            <li>Highlights</li>
+          <Link href="/choose-plan">
+            <li>Subscription</li>
           </Link>
-          <li>Search</li>
+          <Link href="/for-you">
+            <li>Search</li>
+          </Link>
         </ul>
       </div>
 
@@ -40,7 +42,7 @@ export default function Sidebar() {
           <Link href="/settings">
             <li>Settings</li>
           </Link>
-          <li>Help & Support</li>
+          <li style={{ cursor: "not-allowed" }}>Help & Support</li>
           <li onClick={handleLogout} style={{ cursor: "pointer" }}>
             Logout
           </li>

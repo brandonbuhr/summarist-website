@@ -7,6 +7,7 @@ import { getDoc, doc } from "firebase/firestore";
 import { auth, db } from "@firebase/firebaseClient";
 import { useAuthModal } from "@/context/AuthModalContext";
 import Sidebar from "@/components/Sidebar";
+import SearchBar from "@/components/SearchBar";
 
 interface Book {
   id: string;
@@ -30,7 +31,6 @@ interface Book {
 export default function PlayerPage() {
   const params = useParams();
   const router = useRouter();
-  const { openModal } = useAuthModal();
 
   const [book, setBook] = useState<Book | null>(null);
   const [user, setUser] = useState<any>(null);
@@ -92,7 +92,9 @@ export default function PlayerPage() {
       <div className="sidebar-container">
         <Sidebar />
       </div>
-
+      <div>
+        <SearchBar />
+      </div>
       <div className="content-container">
         <button
           className="back-button"

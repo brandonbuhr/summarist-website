@@ -7,6 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
 import { auth, db } from "@firebase/firebaseClient";
 import Sidebar from "@/components/Sidebar";
+import SearchBar from "@/components/SearchBar";
 
 interface Book {
   id: string;
@@ -150,7 +151,9 @@ export default function BookPage() {
       <div className="sidebar-container">
         <Sidebar />
       </div>
-
+      <div>
+        <SearchBar />
+      </div>
       <div className="content-container">
         <div className="book-detail-container">
           <div className="book-detail-header">
