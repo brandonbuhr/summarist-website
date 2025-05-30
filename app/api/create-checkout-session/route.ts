@@ -3,8 +3,7 @@ import Stripe from "stripe";
 import admin from "firebase-admin";
 
 const serviceAccount = JSON.parse(
-  process.env.FIREBASE_SERVICE_ACCOUNT_KEY!.replace(/\\n/g, "\n")
-);
+  process.env.FIREBASE_SERVICE_ACCOUNT_KEY!);
 
 if (!admin.apps.length) {
   admin.initializeApp({
