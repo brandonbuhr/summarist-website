@@ -812,35 +812,27 @@ button:disabled {
   min-width: 180px;
 }
 
-/* DASHBOARD */
-
-.dashboard-container {
-  margin-left: 250px;
-  padding: 30px;
-  overflow-y: auto;
-  background-color: #fafafa;
-  min-height: 100vh;
-  box-sizing: border-box;
+/* SIDEBAR TOGGLE CHECKBOX */
+.sidebar-checkbox {
+  display: none;
 }
 
-/* SIDEBAR */
-
-.sidebar-container {
+/* SIDEBAR WRAPPER (transformed, not including hamburger) */
+.sidebar-wrapper {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
   width: 250px;
-  background-color: #f9fcfb;
-  padding: 0;
+  height: 100vh;
   z-index: 1000;
+  background-color: #f9fcfb;
   overflow-y: auto;
+  transition: transform 0.3s ease;
 }
 
+/* SIDEBAR CONTENT */
 .sidebar {
   height: 100%;
-  width: 250px;
-  background-color: #f9fcfb;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -873,6 +865,66 @@ button:disabled {
 
 .sidebar-nav li:hover {
   color: #1a4f70;
+}
+
+/* HAMBURGER BUTTON */
+.sidebar-hamburger {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  width: 24px;
+  height: 18px;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 1101; /* Higher than sidebar */
+}
+
+.sidebar-hamburger .bar {
+  height: 3px;
+  width: 100%;
+  background-color: #032b41;
+  border-radius: 2px;
+  margin-bottom: 4px;
+}
+
+.sidebar-hamburger .bar:last-child {
+  margin-bottom: 0;
+}
+
+/* DASHBOARD CONTENT */
+.dashboard-container {
+  margin-left: 250px;
+  padding: 30px;
+  overflow-y: auto;
+  background-color: #fafafa;
+  min-height: 100vh;
+  box-sizing: border-box;
+  transition: margin-left 0.3s ease;
+}
+
+/* SMALL SCREENS */
+@media (max-width: 768px) {
+  .sidebar {
+    margin-top: 56px;
+    transition: margin-top 0.3s ease;
+  }
+  .sidebar-wrapper {
+    transform: translateX(-100%);
+  }
+
+  .sidebar-checkbox:checked ~ .sidebar-wrapper {
+    transform: translateX(0);
+  }
+
+  .sidebar-hamburger {
+    display: flex;
+  }
+
+  .dashboard-container {
+    margin-left: 0;
+  }
 }
 
 /* BOOKS */
@@ -932,6 +984,13 @@ button:disabled {
   border-radius: 50px;
   font-weight: 600;
   text-transform: uppercase;
+}
+@media (max-width: 768px) {
+  .book-section {
+    justify-content: center;
+    gap: 24px;
+    overflow-x: visible;
+  }
 }
 
 /* BOOK PAGE */
@@ -1073,6 +1132,39 @@ button:disabled {
 
 .back-button:hover {
   text-decoration: underline;
+}
+@media (max-width: 768px) {
+  .book-detail-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .book-detail-img {
+    width: 200px;
+  }
+
+  .book-detail-container {
+    padding: 16px;
+  }
+
+  .book-detail-info {
+    width: 100%;
+  }
+
+  .book-detail-buttons {
+    justify-content: center;
+  }
+
+  .book-stats {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .book-tags {
+    text-align: center;
+  }
 }
 
 /* SUBSCRIPTION PAGE */
