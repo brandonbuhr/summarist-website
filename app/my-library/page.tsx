@@ -6,7 +6,6 @@ import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "@firebase/firebaseClient";
 import Sidebar from "@/components/Sidebar";
 import Link from "next/link";
-import "/globals.css";
 import SearchBar from "@/components/SearchBar";
 
 interface Book {
