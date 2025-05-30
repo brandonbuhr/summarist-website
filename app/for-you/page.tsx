@@ -1,5 +1,4 @@
 import Sidebar from "@/components/Sidebar";
-import "/globals.css";
 import ForYouContent from "@/components/ForYouContent";
 import SearchBar from "@/components/SearchBar";
 export default function ForYou() {
