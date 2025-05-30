@@ -5,7 +5,6 @@ import { useParams, useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
 import { auth, db } from "@firebase/firebaseClient";
-import { useAuthModal } from "@/context/AuthModalContext";
 import Sidebar from "@/components/Sidebar";
 import SearchBar from "@/components/SearchBar";
 

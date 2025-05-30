@@ -52,7 +52,6 @@ export default function LoginModal() {
       );
       const user = userCredential.user;
 
-      // Set default subscription to Basic
       await setDoc(doc(db, "users", user.uid, "subscription", "status"), {
         isActive: false,
         plan: "Basic",
@@ -82,7 +81,6 @@ export default function LoginModal() {
       const result = await signInAnonymously(auth);
       const user = result.user;
 
-      // Set default subscription to Basic
       await setDoc(doc(db, "users", user.uid, "subscription", "status"), {
         isActive: false,
         plan: "Basic",

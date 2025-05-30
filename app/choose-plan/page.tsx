@@ -56,7 +56,7 @@ export default function ChoosePlan() {
       alert(
         "Plan changed to " +
           selectedPlan +
-          "\nStripe checkout disabled for testing"
+          "\nThis is a demo app, so no actual payment will be processed."
       );
       setCurrentPlan(selectedPlan);
     } catch (err) {
