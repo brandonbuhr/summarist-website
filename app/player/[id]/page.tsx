@@ -119,7 +119,7 @@ export default function PlayerPage() {
 
         {book.type.includes("Text") && (
           <>
-            <h3 style={{ marginTop: "40px" }}>Summary</h3>
+            <h3 style={{ marginTop: "36px" }}>Summary</h3>
             <p className="book-summary">{book.summary}</p>
           </>
         )}
