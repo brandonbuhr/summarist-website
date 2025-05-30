@@ -32,7 +32,7 @@ export default function ForYouContent() {
       const selected = await fetch(
         "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=selected"
       ).then((res) => res.json());
-      console.log("Selected book from API:", selected);
+
       setSelectedBook(selected[0]);
 
       const recommended = await fetch(
@@ -87,9 +87,7 @@ export default function ForYouContent() {
             <h2>{selectedBook.title}</h2>
             <h4>{selectedBook.subTitle}</h4>
             <p>{selectedBook.author}</p>
-            {selectedBook.subscriptionRequired && (
-              <span className="pill">Premium</span>
-            )}
+            {selectedBook.subscriptionRequired}
           </div>
         </Link>
       ) : (
