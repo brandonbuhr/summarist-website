@@ -19,6 +19,7 @@ interface Book {
 }
 
 export default function MyLibrary() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [libraryBooks, setLibraryBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
@@ -43,9 +44,9 @@ export default function MyLibrary() {
   return (
     <div className="dashboard-container">
       <div className="sidebar-container">
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       </div>
-      <SearchBar />
+      <SearchBar isSidebarOpen={isSidebarOpen} />
       <div className="content-container">
         <h2>My Library</h2>
 

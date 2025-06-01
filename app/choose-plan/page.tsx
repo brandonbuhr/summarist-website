@@ -11,6 +11,7 @@ export default function ChoosePlan() {
   const [user, setUser] = useState<User | null>(null);
   const [currentPlan, setCurrentPlan] = useState<string | null>(null);
   const { openModal } = useAuthModal();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -72,11 +73,10 @@ export default function ChoosePlan() {
   return (
     <div className="dashboard-container">
       <div className="sidebar-container">
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       </div>
-      <div className="content-container">
-        <h2>Choose Your Plan</h2>
-
+      <div>
+        <h3>Choose Your Plan</h3>
         <div className="plan-container">
           <button
             onClick={() => handleUpgrade("basic")}

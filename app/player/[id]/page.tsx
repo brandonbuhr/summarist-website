@@ -35,6 +35,7 @@ export default function PlayerPage() {
   const [user, setUser] = useState<any>(null);
   const [plan, setPlan] = useState("basic");
   const [checkingAccess, setCheckingAccess] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -89,11 +90,9 @@ export default function PlayerPage() {
   return (
     <div className="dashboard-container">
       <div className="sidebar-container">
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       </div>
-      <div>
-        <SearchBar />
-      </div>
+      <SearchBar isSidebarOpen={isSidebarOpen} />
       <div className="content-container">
         <button
           className="back-button"

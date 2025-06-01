@@ -22,10 +22,14 @@ interface Book {
   authorDescription: string;
 }
 
-export default function SearchBar() {
+interface SearchBarProps {
+  isSidebarOpen: boolean;
+}
+
+export default function SearchBar({ isSidebarOpen }: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState<Book[]>([]);
-  const [debouncedTerm, setDebouncedTerm] = useState(searchTerm);
+  const [debouncedTerm, setDebouncedTerm] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -57,6 +61,14 @@ export default function SearchBar() {
 
   return (
     <div className="search-bar">
+      <h1
+        className={`main-logo ${
+          isSidebarOpen ? "hidden-logo" : "centered-logo"
+        }`}
+      >
+        📘 Summarist
+      </h1>
+
       <input
         type="text"
         placeholder="Search by title or author"

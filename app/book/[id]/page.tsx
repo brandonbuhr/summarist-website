@@ -38,6 +38,7 @@ export default function BookPage() {
   const [plan, setPlan] = useState("basic");
   const [checkingAccess, setCheckingAccess] = useState(true);
   const [isInLibrary, setIsInLibrary] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -149,10 +150,10 @@ export default function BookPage() {
   return (
     <div className="dashboard-container">
       <div className="sidebar-container">
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       </div>
       <div>
-        <SearchBar />
+        <SearchBar isSidebarOpen={isSidebarOpen} />
       </div>
       <div className="content-container">
         <div className="book-detail-container">

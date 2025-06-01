@@ -15,6 +15,7 @@ export default function SettingsPage() {
   const [plan, setPlan] = useState<PlanType | null>(null);
   const [loading, setLoading] = useState(true);
   const { openModal } = useAuthModal();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -55,11 +56,9 @@ export default function SettingsPage() {
   return (
     <div className="dashboard-container">
       <div className="sidebar-container">
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       </div>
-      <div>
-        <SearchBar />
-      </div>
+      <SearchBar isSidebarOpen={isSidebarOpen} />
       <div className="content-container">
         <h2>Settings</h2>
 
