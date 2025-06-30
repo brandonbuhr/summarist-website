@@ -1339,8 +1339,9 @@ button:disabled {
 
 /* SEARCH BAR */
 .search-bar {
+  margin-top: 32px;
+  margin-bottom: 16px;
   position: relative;
-  margin: 1rem 0;
   width: 100%;
   max-width: 600px;
 }
@@ -1388,6 +1389,6 @@ button:disabled {
     left: 0;
     transform: none;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 48px;
   }
 }
