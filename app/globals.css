@@ -154,6 +154,7 @@ button:disabled {
 .modal-button.secondary {
   background-color: #20ba68;
   color: white;
+  font-weight: normal;
 }
 
 .modal-button.outline {
@@ -1072,6 +1073,9 @@ button:disabled {
   background-color: #f0f0f0;
   color: #002b45;
   font-size: 16px;
+}
+.library-button:hover {
+  color: #0055ff;
 }
 
 .book-detail-buttons button:hover {
