@@ -628,7 +628,7 @@ button:disabled {
 }
 
 h3 {
-  font-size: 24px;
+  font-size: 32px;
   padding-top: 32px;
   padding-bottom: 32px;
 }
@@ -819,12 +819,10 @@ button:disabled {
   left: 0;
   width: 250px;
   height: 100vh;
-  background-color: #f9fcfb;
   overflow: hidden;
   z-index: 1000;
   transition: transform 0.3s ease;
   transform: translateX(-100%);
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 }
@@ -966,13 +964,15 @@ button:disabled {
 }
 
 .book-card h4 {
-  font-size: 14px;
+  text-align: center;
+  font-size: 18px;
   font-weight: 600;
   margin: 8px 0 4px;
 }
 
 .book-card p {
-  font-size: 12px;
+  text-align: center;
+  font-size: 14px;
   color: #666;
   margin: 0;
 }
@@ -1180,7 +1180,6 @@ button:disabled {
   display: flex;
   flex-wrap: wrap;
   gap: 32px;
-  justify-content: center;
   margin-top: 24px;
   align-items: flex-start;
 }
@@ -1249,6 +1248,9 @@ button:disabled {
 }
 
 @media (max-width: 768px) {
+  .plan-container {
+    justify-content: center;
+  }
   .plan-card-outline {
     width: 300px;
   }

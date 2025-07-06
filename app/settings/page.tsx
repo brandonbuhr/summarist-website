@@ -58,7 +58,7 @@ export default function SettingsPage() {
       <div className="sidebar-container">
         <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       </div>
-      <SearchBar isSidebarOpen={isSidebarOpen} />
+
       <div className="content-container">
         <h2>Settings</h2>
 
