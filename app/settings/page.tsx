@@ -60,7 +60,7 @@ export default function SettingsPage() {
       </div>
 
       <div className="content-container">
-        <h2>Settings</h2>
+        <h1>Settings</h1>
 
         {loading ? (
           <p>Loading...</p>
@@ -75,13 +75,8 @@ export default function SettingsPage() {
         ) : (
           <div className="settings-panel">
             <div className="settings-item">
-              <h4>Subscription Plan</h4>
-              <p
-                className="plan-label"
-                style={{ color: "green", fontWeight: "bold" }}
-              >
-                {plan}
-              </p>
+              <h2>Subscription Plan</h2>
+              <p className="plan-label">{plan}</p>
               <button
                 className="plan-button"
                 onClick={() => (window.location.href = "/choose-plan")}
@@ -91,7 +86,7 @@ export default function SettingsPage() {
             </div>
 
             <div className="settings-item">
-              <h4>Email</h4>
+              <h2 className="email-label">Email</h2>
               {user.email ? (
                 <p>{user.email}</p>
               ) : (

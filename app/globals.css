@@ -152,7 +152,7 @@ button:disabled {
 }
 
 .modal-button.secondary {
-  background-color: #20ba68;
+  background-color: #2bd97c;
   color: white;
   font-weight: normal;
 }
@@ -814,6 +814,7 @@ button:disabled {
 
 /* SIDEBAR */
 .sidebar-wrapper {
+  background-color: #0055ff;
   position: fixed;
   top: 0;
   left: 0;
@@ -843,7 +844,7 @@ button:disabled {
 .sidebar-logo {
   font-size: 24px;
   font-weight: bold;
-  color: #002b45;
+  color: white;
   margin-bottom: 40px;
 }
 
@@ -857,14 +858,15 @@ button:disabled {
 }
 
 .sidebar-nav li {
-  color: #002b45;
+  color: white;
   font-weight: 500;
+  font-size: large;
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
 .sidebar-nav li:hover {
-  color: #1a4f70;
+  color: #2bd97c;
 }
 
 .sidebar-toggle-btn {
@@ -1060,12 +1062,14 @@ button:disabled {
 }
 
 .read-button {
-  background-color: #002b45;
-  color: white;
+  background-color: #2bd97c;
+  color: black;
 }
-
+.read-button:hover {
+  background-color: #74ffb5;
+}
 .listen-button {
-  background-color: #1d4ed8;
+  background-color: #0055ff;
   color: white;
 }
 
@@ -1203,7 +1207,7 @@ button:disabled {
 }
 
 .plan-card-outline:hover {
-  border-color: #007f7f;
+  border-color: #0055ff;
 }
 
 .plan-header {
@@ -1215,12 +1219,12 @@ button:disabled {
 
 .plan-card-outline h3 {
   font-size: 22px;
-  color: #002b45;
+  color: #0055ff;
   margin-bottom: 8px;
 }
 
 .plan-card-outline p {
-  font-size: 14px;
+  font-size: 18px;
   color: #555;
   margin-bottom: 16px;
 }
@@ -1232,15 +1236,16 @@ button:disabled {
 }
 
 .plan-card-outline li {
-  font-size: 14px;
+  font-size: 18px;
   color: #333;
   margin-bottom: 6px;
 }
 
 .plan-pill {
   background-color: #ffd700;
+  border: 1px solid black;
   color: #000;
-  padding: 4px 10px;
+  padding: 6px 10px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: bold;
@@ -1285,35 +1290,21 @@ button:disabled {
   margin-top: 60px;
 }
 
-.primary-button {
-  padding: 10px 16px;
-  font-weight: bold;
-  background-color: #002b45;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  margin-top: 16px;
-  cursor: pointer;
-}
-
-.primary-button:hover {
-  background-color: #004063;
-}
-
 .settings-panel {
   margin-top: 32px;
 }
 
 .settings-item {
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .plan-label {
   background-color: #e0f2f1;
-  color: #004d40;
+  color: #2bd97c;
   display: inline-block;
-  padding: 6px 12px;
+  padding: 12px;
   border-radius: 14px;
+  font-size: large;
   font-weight: bold;
   margin-top: 6px;
   text-transform: capitalize;
@@ -1321,11 +1312,12 @@ button:disabled {
 
 .plan-button {
   margin-top: 12px;
-  background-color: #002b45;
+  background-color: #0055ff;
   color: white;
-  padding: 8px 14px;
+  padding: 12px 16px;
   border: none;
   border-radius: 6px;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -1343,6 +1335,9 @@ button:disabled {
   background-color: #bbb;
 }
 
+.email-label {
+  margin-bottom: 12px;
+}
 /* SEARCH BAR */
 .search-bar {
   margin-top: 32px;

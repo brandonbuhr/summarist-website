@@ -48,7 +48,7 @@ export default function MyLibrary() {
       </div>
       <SearchBar isSidebarOpen={isSidebarOpen} />
       <div className="content-container">
-        <h2>My Library</h2>
+        <h1>My Library</h1>
 
         {loading ? (
           <p>Loading...</p>
